@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -13,84 +14,133 @@
             --text: #ffffff;
         }
 
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            background: var(--bg-color); 
-            color: var(--text); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            margin: 0; 
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg-color);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
             padding: 5px;
-            overflow-x: hidden; /* Chống cuộn ngang tuyệt đối */
+            overflow-x: hidden;
+            /* Chống cuộn ngang tuyệt đối */
             touch-action: manipulation;
         }
 
-        .header h2 { color: #f1c40f; margin: 5px 0; font-size: 1.2rem; }
+        .header {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 10px;
+        }
 
-        /* Menu chọn màn chơi - Làm nhỏ lại để tiết kiệm diện tích */
-        .mode-selector { 
-            display: flex; gap: 4px; flex-wrap: wrap; 
-            justify-content: center; margin-bottom: 10px; 
+        .header h2 {
+            color: #f1c40f;
+            margin: 5px 0;
+            font-size: 1.2rem;
+            display: block;
         }
-        .mode-btn { 
-            padding: 4px 8px; border: 1px solid #444; border-radius: 10px; 
-            background: #333; color: #ccc; font-size: 0.7rem;
-        }
-        .mode-btn.active { background: var(--accent); color: white; font-weight: bold; }
 
-        /* Bảng chọn Icon */
-        .palette { 
-            display: flex; gap: 5px; margin-bottom: 10px; 
-            background: #252525; padding: 8px; border-radius: 10px; 
-            flex-wrap: wrap; justify-content: center; width: 98%;
+        .mode-selector {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 10px;
         }
-        .icon-item { 
-            width: 40px; height: 40px; font-size: 20px; display: flex; 
-            align-items: center; justify-content: center; background: #ebedee; 
-            border-radius: 6px; border: 2px solid transparent;
+
+        .mode-btn {
+            padding: 4px 8px;
+            border: 1px solid #444;
+            border-radius: 10px;
+            background: #333;
+            color: #ccc;
+            font-size: 0.7rem;
         }
-        .icon-item.selected { border-color: #f1c40f; transform: scale(1.05); }
+
+        .mode-btn.active {
+            background: var(--accent);
+            color: white;
+            font-weight: bold;
+        }
+
+        .palette {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            background: #252525;
+            padding: 8px;
+            border-radius: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 98%;
+        }
+
+        .icon-item {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ebedee;
+            border-radius: 6px;
+            border: 2px solid transparent;
+        }
+
+        .icon-item.selected {
+            border-color: #f1c40f;
+            transform: scale(1.05);
+        }
 
         /* Lưới bài - CỐ ĐỊNH CHIỀU NGANG */
-        .grid { 
-            display: grid; 
-            gap: 4px; 
-            background: #3e2723; 
-            padding: 8px; 
-            border-radius: 8px; 
+        .grid {
+            display: grid;
+            gap: 4px;
+            background: #3e2723;
+            padding: 8px;
+            border-radius: 8px;
             border: 2px solid #2b1d1d;
-            width: 95vw; /* Luôn chiếm 95% chiều ngang màn hình, không hơn */
+            width: 80vw;
+            /* Luôn chiếm 80% chiều ngang màn hình, không hơn */
             box-sizing: border-box;
         }
 
-        .card { 
-            background: var(--card-bg); 
-            border-radius: 4px; 
-            border: 1px solid var(--card-border); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            /* Tự động tính toán chiều cao dựa trên chiều ngang để giữ tỉ lệ ô */
-            aspect-ratio: 3 / 4; 
-            font-size: 6vw; /* Kích thước icon co giãn theo màn hình */
+        .card {
+            background: var(--card-bg);
+            border-radius: 4px;
+            border: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 3 / 4;
+            font-size: 6vw;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-        
-        .card.filled { background-color: #795548 !important; border-color: #fff; }
 
-        .reset-btn { 
-            margin-top: 15px; padding: 8px 25px; font-size: 13px; 
-            background: #c0392b; color: white; border: none; border-radius: 20px; 
+        .card.filled {
+            background-color: #795548 !important;
+            border-color: #fff;
+        }
+
+        .reset-btn {
+            margin-top: 15px;
+            padding: 8px 25px;
+            font-size: 13px;
+            background: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 20px;
         }
     </style>
 </head>
+
 <body>
 
     <div class="header">
-        <h2>Hỗ trợ ghi nhớ PTG</h2>
-        <p>Chọn hình rồi chọn ô để thêm || Chạm 2 lần để Xóa</p>
+        <h2>HELP REMEMBER PTG</h2>
+        <p>Chọn hình rồi chọn ô để thêm &emsp; || &emsp; Chạm 2 lần để Xóa</p>
     </div>
 
     <div class="mode-selector" id="modeSelector">
@@ -111,8 +161,8 @@
 
     <script>
         const icons = [
-            { emoji: '🍷' }, { emoji: '⚓' }, { emoji: '💠' }, 
-            { emoji: '🔍' }, { emoji: '🪄' }, { emoji: '🚢' }, 
+            { emoji: '🍷' }, { emoji: '⚓' }, { emoji: '♦️' },
+            { emoji: '🔍' }, { emoji: '🪄' }, { emoji: '🚢' },
             { emoji: '🎵' }, { emoji: '⛵' }, { emoji: '☸️' }
         ];
 
@@ -136,37 +186,33 @@
 
         function initGrid(rows, cols, btn) {
             document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
+            if (btn) btn.classList.add('active');
 
             // SỬ DỤNG 1fr để các cột tự chia đều không gian
             gridElement.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
             gridElement.innerHTML = '';
-            
+
             for (let i = 0; i < rows * cols; i++) {
                 const card = document.createElement('div');
                 card.className = 'card';
-                
-                // 1 chạm: Ghi
                 card.onclick = () => {
                     card.innerHTML = icons[selectedIconIndex].emoji;
                     card.classList.add('filled');
-                    card.style.backgroundColor = '#795548'; 
+                    card.style.backgroundColor = '#795548';
                 };
-
-                // Nhấn đúp: Xóa (Dùng cho mobile)
                 card.ondblclick = (e) => {
                     e.preventDefault();
                     card.innerHTML = '';
                     card.classList.remove('filled');
                     card.style.backgroundColor = '';
                 };
-                
+
                 gridElement.appendChild(card);
             }
         }
 
         function resetAll() {
-            if(confirm("Xóa hết?")) {
+            if (confirm("Xóa hết?")) {
                 document.querySelectorAll('.card').forEach(c => {
                     c.innerHTML = '';
                     c.classList.remove('filled');
@@ -179,4 +225,5 @@
         initGrid(2, 8); 
     </script>
 </body>
+
 </html>
