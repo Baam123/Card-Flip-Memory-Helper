@@ -3,59 +3,68 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play Together Memory Helper - Brown Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PT Memory Helper - Mobile Edition</title>
     <style>
         :root {
-            --bg-color: #cfafee;
-            /* Nền trang web đen sâu để nổi bật bài */
+            --bg-color: #121212;
+            /* Nền tối sâu */
             --card-bg: #5d4037;
-            /* Màu nâu gỗ cho lá bài */
-            --card-border: #CFAB8D;
+            /* Nâu gỗ đặc trưng */
+            --card-border: #8d6e63;
             /* Viền nâu sáng */
             --accent: #e67e22;
-            /* Màu cam nhấn */
+            /* Cam nhấn */
             --text: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background: var(--bg-color);
             color: var(--text);
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
+            touch-action: manipulation;
+            /* Tối ưu hóa phản hồi chạm trên mobile */
         }
 
         .header {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .header h2 {
             color: #f1c40f;
-            margin-bottom: 5px;
+            margin: 5px 0;
+            font-size: 1.4rem;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin: 0;
         }
 
         /* Menu chọn màn chơi */
         .mode-selector {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
-            gap: 8px;
+            gap: 5px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .mode-btn {
-            padding: 8px 15px;
+            padding: 6px 12px;
             border: 1px solid #444;
-            border-radius: 20px;
+            border-radius: 15px;
             cursor: pointer;
             background: #333;
             color: #ccc;
-            transition: 0.3s;
+            font-size: 0.8rem;
         }
 
         .mode-btn.active {
@@ -68,89 +77,92 @@
         /* Bảng chọn Icon */
         .palette {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            background: #2d2d2d;
-            padding: 15px;
-            border-radius: 15px;
+            gap: 8px;
+            margin-bottom: 15px;
+            background: #252525;
+            padding: 10px;
+            border-radius: 12px;
             flex-wrap: wrap;
             justify-content: center;
-            max-width: 600px;
-            border: 2px solid #444;
+            width: 95%;
+            border: 1px solid #333;
         }
 
         .icon-item {
-            width: 50px;
-            height: 50px;
-            font-size: 28px;
+            width: 45px;
+            height: 45px;
+            font-size: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #ebedee;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            border: 3px solid transparent;
-            transition: 0.2s;
+            border: 2px solid transparent;
         }
 
         .icon-item.selected {
             border-color: #f1c40f;
-            transform: scale(1.15);
-            box-shadow: 0 0 15px #f1c40f;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px #f1c40f;
         }
 
-        /* Lưới thẻ bài màu nâu */
+        /* Lưới thẻ bài */
+        .grid-container {
+            width: 100%;
+            overflow-x: auto;
+            /* Cho phép cuộn ngang nếu màn hình quá nhỏ */
+            display: flex;
+            justify-content: center;
+            padding-bottom: 10px;
+        }
+
         .grid {
             display: grid;
-            gap: 10px;
+            gap: 6px;
             background: #3e2723;
-            /* Nền khay đựng bài màu nâu đậm */
-            padding: 20px;
-            border-radius: 12px;
-            border: 4px solid #2b1d1d;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            border: 3px solid #2b1d1d;
         }
 
         .card {
-            width: 65px;
-            height: 85px;
+            width: 55px;
+            height: 75px;
             background: var(--card-bg);
-            border-radius: 8px;
-            border: 2px solid var(--card-border);
+            border-radius: 6px;
+            border: 1px solid var(--card-border);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 35px;
+            font-size: 28px;
             cursor: pointer;
-            transition: 0.1s;
+            user-select: none;
+            /* Tránh bôi đen văn bản khi nhấn đúp */
+            -webkit-tap-highlight-color: transparent;
+            /* Xóa màu highlight xanh khi chạm trên iOS/Android */
         }
 
-        .card:hover {
-            filter: brightness(1.3);
+        .card.filled {
+            background-color: #795548 !important;
             border-color: #fff;
         }
 
-        /* Khi đã điền icon vào */
-        .card.filled {
-            background-color: #795548 !important;
-            /* Nâu sáng hơn khi đã lật */
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-
         .controls {
-            margin-top: 25px;
+            margin-top: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .reset-btn {
-            padding: 12px 40px;
-            font-size: 16px;
+            padding: 10px 30px;
+            font-size: 14px;
             background: #c0392b;
             color: white;
             border: none;
-            border-radius: 30px;
-            cursor: pointer;
+            border-radius: 20px;
             font-weight: bold;
-            text-transform: uppercase;
         }
     </style>
 </head>
@@ -158,8 +170,8 @@
 <body>
 
     <div class="header">
-        <h2>Ghi Nhớ Thẻ Play Together 🃏</h2>
-        <p>Chọn icon ➔ Nhấn vào ô nâu để đánh dấu</p>
+        <h2>PT Memory Mobile 📱</h2>
+        <p>1 chạm: Ghi | 2 chạm: Xóa</p>
     </div>
 
     <div class="mode-selector" id="modeSelector">
@@ -174,23 +186,19 @@
 
     <div class="palette" id="palette"></div>
 
-    <div class="grid" id="grid"></div>
+    <div class="grid-container">
+        <div class="grid" id="grid"></div>
+    </div>
 
     <div class="controls">
-        <button class="reset-btn" onclick="resetAll()">XÓA HẾT LÀM MỚI</button>
+        <button class="reset-btn" onclick="resetAll()">LÀM MỚI TẤT CẢ</button>
     </div>
 
     <script>
         const icons = [
-            { emoji: '🍷', color: '#e74c3c' }, // Ly rượu
-            { emoji: '⚓', color: '#9b59b6' }, // Mỏ neo
-            { emoji: '💠', color: '#27ae60' }, // La bàn
-            { emoji: '🔍', color: '#3498db' }, // Kính lúp
-            { emoji: '🎇', color: '#f39c12' }, // Đũa phép
-            { emoji: '🚢', color: '#e84393' }, // Huy hiệu
-            { emoji: '🎵', color: '#f1c40f' }, // Nốt nhạc
-            { emoji: '⛵', color: '#2980b9' }, // Thuyền
-            { emoji: '☸️', color: '#d35400' }, // Vô lăng
+            { emoji: '🍷' }, { emoji: '⚓' }, { emoji: '💠' },
+            { emoji: '🔍' }, { emoji: '🪄' }, { emoji: '🎖️' },
+            { emoji: '🎵' }, { emoji: '⛵' }, { emoji: '☸️' }
         ];
 
         let selectedIconIndex = 0;
@@ -215,30 +223,34 @@
             document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
 
-            gridElement.style.gridTemplateColumns = `repeat(${cols}, 65px)`;
+            gridElement.style.gridTemplateColumns = `repeat(${cols}, 55px)`;
             gridElement.innerHTML = '';
 
             for (let i = 0; i < rows * cols; i++) {
                 const card = document.createElement('div');
                 card.className = 'card';
+
+                // Nhấn 1 lần: Ghi icon
                 card.onclick = () => {
                     card.innerHTML = icons[selectedIconIndex].emoji;
                     card.classList.add('filled');
-                    // Giữ màu nâu nhưng làm sáng lên một chút khi có icon
                     card.style.backgroundColor = '#795548';
                 };
-                card.oncontextmenu = (e) => {
+
+                // Nhấn đúp: Xóa ô
+                card.ondblclick = (e) => {
                     e.preventDefault();
                     card.innerHTML = '';
                     card.classList.remove('filled');
                     card.style.backgroundColor = '';
                 };
+
                 gridElement.appendChild(card);
             }
         }
 
         function resetAll() {
-            if (confirm("Xóa toàn bộ để sang ván mới?")) {
+            if (confirm("Xóa hết bảng để chơi ván mới?")) {
                 document.querySelectorAll('.card').forEach(c => {
                     c.innerHTML = '';
                     c.classList.remove('filled');
