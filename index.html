@@ -7,6 +7,7 @@
     <title>Memory Helper</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="./logo.png" rel="icon" type="image/x-icon"/>
 
     <style>
         :root {
@@ -163,7 +164,9 @@
             color: white !important;
             border-radius: 20px !important;
         }
-        .swal2-title, .swal2-html-container {
+
+        .swal2-title,
+        .swal2-html-container {
             color: white !important;
         }
     </style>
@@ -191,7 +194,11 @@
 
     <button class="reset-btn" onclick="resetAll()">
         CHƠI LẠI
-    </button>
+    </button><br>
+
+    <footer style="text-align:center; padding: 20px; font-size: 17px; color: var(--text3);">
+        Made with ❤️ by <strong style="color: var(--text2);">QuyCo</strong>
+    </footer>
 
     <script>
         const icons = [{ emoji: '🍷' }, { emoji: '⚓' }, { emoji: '♦️' }, { emoji: '🔍' }, { emoji: '🪄' }, { emoji: '🚢' }, { emoji: '🎵' }, { emoji: '⛵' }, { emoji: '☸️' }];
@@ -233,7 +240,7 @@
 
             grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
             grid.innerHTML = '';
-            history = {}; 
+            history = {};
 
             for (let i = 0; i < rows * cols; i++) {
                 const card = document.createElement('div');
